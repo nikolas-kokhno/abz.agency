@@ -18,6 +18,25 @@
   }
 }
 
+.section {
+  padding: 154px 0;
+  text-align: center;
+  font-weight: 400;
+
+  &__header {
+    font-size: 50px;
+    line-height: 50px;
+    color: #212529;
+    font-weight: 400;
+  }
+
+  &__subheader {
+    font-size: 16px;
+    line-height: 22px;
+    color: #4c4b4b;
+  }
+}
+
 .button-page {
   button {
     width: 210px;
@@ -41,6 +60,8 @@
 }
 
 /* End all styles */
+
+/* Banner section */
 .banner {
   margin-top: 60px;
   background-image: url('./assets/img/banner-photo.jpg');
@@ -123,12 +144,48 @@
   }
 }
 
-/* Banner section */
-
-
 /* End Banner section */
 
 /* About section */
+.about {
+
+  &__content {
+    margin-top: 70px;
+    display: flex;
+
+    &-img {
+      img {
+        height: 80%;
+      }
+    }
+
+    &-text {
+      text-align-last: left;
+      h4 {
+        font-size: 24px;
+        line-height: 30px;
+        color: #212529;
+        font-weight: 400;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 24px;
+        color: #4c4b4b;
+        font-weight: 400;
+        margin-top: 18px;
+      }
+
+      span {
+        font-size: 16px;
+        line-height: 60px;
+        color: #ef5b4c;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}
 
 /* End About section */
 
