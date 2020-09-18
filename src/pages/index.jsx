@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { getToken } from '../api/getToken';
 /* Components */
+import { Navbar } from '../components/Navbar';
 import { Banner } from '../components/Banner';
 import { About } from '../components/About';
 import Users from '../components/Users';
@@ -14,6 +14,7 @@ const MainPage = () => {
     const [users, setUsers] = React.useState([]);
     const [pageAPI, setPageAPI] = React.useState(0);
     const [page, setPage] = React.useState(1);
+    const [positions, setPositions] = React.useState([]);
     const [loading, setLoading] = React.useState('');
 
     React.useEffect(() => {
@@ -32,6 +33,15 @@ const MainPage = () => {
                 setUsers(json.users);
                 setPageAPI(json.total_pages);
                 setPage(page + 1);
+            })
+            .catch(error => {
+                console.log('Something went wrong: ', error);
+            })
+
+        fetch(`${baseURL}/positions`)
+            .then(res => res.json())
+            .then(json => {
+                setPositions(json.positions);
             })
             .catch(error => {
                 console.log('Something went wrong: ', error);
@@ -61,6 +71,7 @@ const MainPage = () => {
 
     return (
         <>
+            <Navbar />
             <Banner />
             <About />
             <Users 
@@ -68,7 +79,7 @@ const MainPage = () => {
                 loading={loading} 
                 showMore={showMore} 
             />
-            <Form />
+            <Form token={token} positions={positions} />
             <Footer />
         </>
     )

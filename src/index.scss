@@ -67,6 +67,90 @@
 
 /* End all styles */
 
+/* Navigation */
+
+.navigation {
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  .navigation__content {
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-logo {
+      cursor: pointer;
+    }
+
+    &-items {
+      display: flex;
+
+      li {
+        font-size: 14px;
+        line-height: 60px;
+        color: #212529;
+        font-weight: 400;
+        font-family: 'Open Sans';
+        margin-left: 29px;
+        cursor: pointer;
+        transition: 0.3s;
+        list-style: none;
+      }
+
+      li:hover {
+        color: #ef5b4c;
+      }
+    }
+  }
+  
+  &__check {
+    display: none;
+    &-btn {
+      display: none;
+      float: right;
+      cursor: pointer;
+    }
+  }
+
+  @media (max-width: 880px) {
+    .navigation {
+      &__check {
+        &-btn {
+          display: block;
+          line-height: 60px;
+        }
+      }
+
+      &__content-items {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #fff;
+        top: 50px;
+        left: -100%;
+        text-align: center;
+        transition: .5s;
+        z-index: 10;
+
+        li {
+          display: block;
+          margin: 40px 0;
+          line-height: 30px;
+        }
+      }
+
+      &__check:checked ~ ul {
+        left: 0;
+      }
+    }
+  }
+}
+
+/* End Navigation block */
+
 /* Banner section */
 .banner {
   margin-top: 60px;
@@ -211,6 +295,7 @@
 
   &__cards {
     padding: 0 37px;
+    margin: auto;
   }
 
   &__card {
@@ -321,7 +406,7 @@
   }
 
   .form-group__file {
-      margin-top: 18px;
+    margin-top: 18px;
     margin-bottom: 40px;
   }
 
@@ -402,10 +487,24 @@
     z-index: -1;
   }
 
+  .error {
+    border: 1px solid red;
+
+    &__display {
+      font-size: 12px;
+      color: #f44336;
+      font-weight: 400;
+      font-family: 'Open Sans';
+    }
+  }
+
+  .default {
+    border: 1px solid #ced4da;
+  }
+
   .labelfile {
     display: inline-block;
     cursor: pointer;
-    border: 1px solid #ced4da;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;

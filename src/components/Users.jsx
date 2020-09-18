@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { UserCard } from './UserCard';
 
-const Users = ({users}) => {
+const Users = ({users, showMore}) => {
     console.log(users)
     return (
         <section className="users">
@@ -19,15 +19,16 @@ const Users = ({users}) => {
                     
                     <div className="users__cards">
                         <Grid container spacing={3}>
-                            {users.map(user => (
-                                <UserCard user={user} />
-                            ))}
+                            {users.length !== 0 ? 
+                                users.map(user => (
+                                    <UserCard key={user.id} user={user} /> )) 
+                            : <div>Loading...</div>}
                         </Grid>
                     </div>
                 </Grid>
 
                 <div className="button-page text-center users__button">
-                    <button>Show more</button>
+                    <button onClick={showMore}>Show more</button>
                 </div>
             </div>
         </section>
