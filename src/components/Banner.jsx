@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-scroll';
 
 export const Banner = () => {
     return (
@@ -24,9 +25,14 @@ export const Banner = () => {
                             </span>
                         </h5>
 
-                        <div className="button-page">
+                        <Link 
+                            to="form" 
+                            smooth={true} 
+                            duration={1000}
+                            className="button-page"
+                        >
                             <button>Sing up now</button>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 

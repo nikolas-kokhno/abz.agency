@@ -1,10 +1,11 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-scroll';
 import Man from '../assets/img/man-laptop-v1.svg';
 
 export const About = () => {
     return (
-        <section className="about">
+        <section className="about" id="about">
             <div className="container">
                 <Grid container spacing={3} className="section">
                     <Grid item xs={12} sm={12}>
@@ -31,7 +32,16 @@ export const About = () => {
                                 will get bonus points as well. Slice service directory 
                                 age P​SD mockup​ into HTML5/CSS3. 
                             </p>
-                            <span>Sing up now</span>
+                            <span>
+                                <Link 
+                                    to="form" 
+                                    smooth={true} 
+                                    duration={1000}
+                                    className="button-page"
+                                >       
+                                    Sing up now
+                                </Link>
+                            </span>
                         </div>
                     </Grid>
                 </Grid>

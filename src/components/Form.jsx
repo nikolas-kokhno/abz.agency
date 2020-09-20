@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const baseURL = 'https://frontend-test-assignment-api.abz.agency/api/v1';
 
-const Form = ({token, positions}) => {
+const Form = ({token, positions, modalOpen}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -23,25 +23,34 @@ const Form = ({token, positions}) => {
         formData.append("email", email);
         formData.append("phone", phone);
         formData.append("position_id", positionID);
-        formData.append("photo", file, file.name);
+
+        file == null ? formData.append("photo", file) :
+            formData.append("photo", file, file.name);
 
         axios
             .post(`${baseURL}/users`, formData, {headers: {token: token } })
             .then((res) => {
-                alert("File Upload success ");
-                console.log(res);
+                modalOpen(true);
+                setError([]);
+                setName('');
+                setEmail('');
+                setPhone('');
+                setPositionID(1);
+                setFile(null);
             })
             .catch((err) => {
-                alert("File Upload Error ", err);
                 setError(err.response.data.fails);
                 console.log("Errors: ", err.response.data.fails);
             })
     }
 
-    console.log(error);
+    const handleOptionChange = (e) => {
+        setPositionID(e.target.value);
+        console.log(e.target.value);
+    }
 
     return (
-        <section className="form">
+        <section className="form" id="form">
             <div className="container section">
 
                 <div className="form__container">
@@ -96,7 +105,7 @@ const Form = ({token, positions}) => {
                                 </span>
                             </div>
 
-                            <div className="form-group__radio">
+                            <div className="form-group__radio" >
                                 <label className="radio__title">Select your position</label>
                                 
                                 {positions.map(item => (
@@ -106,8 +115,7 @@ const Form = ({token, positions}) => {
                                             type="radio" 
                                             value={item.id} 
                                             name="position"
-                                            checked={true}
-                                            onChange={e => setPositionID(e.target.value)}
+                                            onChange={handleOptionChange}
                                         />
                                         <label htmlFor={item.id}>{item.name}</label>                   
                                     </div>

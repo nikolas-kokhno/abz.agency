@@ -1,4 +1,5 @@
 import React from 'react';
+import { animateScroll as scroll, Link } from 'react-scroll';
 import Logo from '../assets/img/logo.svg';
 import Menu from '../assets/img/menu icon.svg';
 
@@ -9,16 +10,46 @@ export const Navbar = () => {
             <div className="container">
                 <div className="navigation__content">
 
-                    <div className="navigation__content-logo">
+                    <div 
+                        className="navigation__content-logo" 
+                        onClick={() => scroll.scrollToTop()}
+                    >
                         <img src={Logo} alt="logo"/>
                     </div>
 
                     <ul className="navigation__content-items">
-                        <li>About me</li>
+                        <li>
+                            <Link
+                                to="about" 
+                                smooth={true} 
+                                duration={1000}
+                                className="button-page"
+                            >
+                                About me
+                            </Link>
+                        </li>
                         <li>Relationships</li>
                         <li>Requirements</li>
-                        <li>Users</li>
-                        <li>Sign Up</li>
+                        <li>
+                            <Link
+                                to="users" 
+                                smooth={true} 
+                                duration={1000}
+                                className="button-page"
+                            >
+                                Users
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                               to="form" 
+                               smooth={true} 
+                               duration={1000}
+                               className="button-page" 
+                            >
+                                Sign Up
+                            </Link>
+                        </li>
                     </ul>
                     
                     <input 
