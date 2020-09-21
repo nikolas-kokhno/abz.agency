@@ -74,7 +74,7 @@ const Form = ({token, positions, modalOpen}) => {
                                     value={name}
                                     onChange={e => setName(e.target.value)}
                                 />
-                                <span style={error.name ? {display: "block"} : { display: "none"}}>
+                                <span className={error.name ? 'span__error' : 'span__none'}>
                                     {error.name}
                                 </span>
                             </div>
@@ -87,7 +87,7 @@ const Form = ({token, positions, modalOpen}) => {
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                 />
-                                <span style={error.email ? {display: "block"} : { display: "none"}}>
+                                <span className={error.name ? 'span__error' : 'span__none'}>
                                     {error.email}
                                 </span>
                             </div>
@@ -100,8 +100,8 @@ const Form = ({token, positions, modalOpen}) => {
                                     value={phone}
                                     onChange={e => setPhone(e.target.value)}
                                 />
-                                <span style={error.phone ? {display: "block"} : { display: "none"}}>
-                                    {error.phone}
+                                <span className={error.name ? 'span__error' : 'span__default'}>
+                                    {error.phone ? error.phone : 'Еnter phone number in open format'}
                                 </span>
                             </div>
 
@@ -109,7 +109,7 @@ const Form = ({token, positions, modalOpen}) => {
                                 <label className="radio__title">Select your position</label>
                                 
                                 {positions.map(item => (
-                                    <div className="radio__item">                  
+                                    <div className="radio__item" key={item.id}>                  
                                         <input 
                                             id={item.id} 
                                             type="radio" 

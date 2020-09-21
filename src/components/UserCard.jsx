@@ -15,7 +15,7 @@ const photoCheker = (photo) => {
 
 export const UserCard = ({user}) => {
     return (
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={12}>
             <div className="users__card">
                 <div className="users__card-avatar">
                     <img src={photoCheker(user.photo)} alt="avatar"/>

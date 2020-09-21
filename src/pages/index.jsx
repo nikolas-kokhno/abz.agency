@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 /* Components */
 import { Navbar } from '../components/Navbar';
@@ -7,14 +8,11 @@ import { About } from '../components/About';
 import Users from '../components/Users';
 import Form from '../components/Form';
 import { Footer } from '../components/Footer';
+import { ModalWindow } from '../components/Modal';
 
-/* Modal Material UI */
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+const baseURL = 'https://frontend-test-assignment-api.abz.agency/api/v1';
 
 const MainPage = () => {
-    const baseURL = 'https://frontend-test-assignment-api.abz.agency/api/v1';
     const [token, setToken] = React.useState('');
     const [users, setUsers] = React.useState([]);
     const [pageAPI, setPageAPI] = React.useState(0);
@@ -24,43 +22,48 @@ const MainPage = () => {
     const [showButton, setShowButton] = React.useState('button-page text-center users__button');
     const [open, setOpen] = React.useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
     React.useEffect(() => {
-        fetch(`${baseURL}/token`)
-            .then(res => res.json())
-            .then(json => {
-                setToken(json.token);
-            })
-            .catch(error => {
-                console.log('Something went wrong: ', error);
-            })
-
-        fetch(`${baseURL}/users?page=${page}&count=6`)
-            .then(res => res.json())
-            .then(json => {
-                setUsers(json.users);
-                setPageAPI(json.total_pages);
-                setPage(page + 1);
-            })
-            .catch(error => {
-                console.log('Something went wrong: ', error);
-            })
-
-        fetch(`${baseURL}/positions`)
-            .then(res => res.json())
-            .then(json => {
-                setPositions(json.positions);
-            })
-            .catch(error => {
-                console.log('Something went wrong: ', error);
-            })
+        getToken();
+        getUsers();
+        getPosition();
     }, []);
 
+    const getToken = async () => {
+        await axios.get(`${baseURL}/token`)
+            .then((res) => {
+                setToken(res.data.token);
+            }
+        )
+    }
+
+    const getUsers = async () => {
+        await axios.get(`${baseURL}/users?page=${page}&count=${checkWidthScreen()}`)
+            .then((res) => {
+                setUsers(prevState => ([...prevState, ...res.data.users]));
+                setPageAPI(res.data.total_pages);
+                setPage(page + 1);
+                setLoading('');
+            }
+        )
+    }
+
+    const getPosition = async () => {
+        await axios.get(`${baseURL}/positions`)
+            .then((res) => {
+                setPositions(res.data.positions);
+            }
+        )
+    }
+
+    const checkWidthScreen = () => {
+        if (window.screen.availWidth > 420) {
+            return 6;
+        } else {
+            return 3;
+        }
+    }
+
     const showMore = async () => {
-        console.log(pageAPI + ' ' + page);
         setLoading('loader');
     
         if (page > pageAPI) {
@@ -68,31 +71,24 @@ const MainPage = () => {
           setLoading('');
         } else {
           setPage(page + 1);
-          await fetch(`${baseURL}/users?page=${page}&count=6`)
-          .then(res => res.json())
-          .then(json => {
-            setUsers(prevState => ([...prevState, ...json.users]));
-            setLoading('');
-          })
-          .catch(err => {
-            console.error(err);
-        })
+          getUsers();
         }
     }
 
     const updateUser = () => {
-        fetch(`${baseURL}/users?count=6`)
-            .then(res => res.json())
-            .then(json => {
-                setUsers(json.users);
-                setPageAPI(json.total_pages);
+        axios.get(`${baseURL}/users?count=6`)
+            .then((res) => {
+                setUsers(res.data.users);
+                setPageAPI(res.data.total_pages);
                 setPage(page + 1);
                 setOpen(false);
-            })
-            .catch(error => {
-                console.log('Something went wrong: ', error);
-            })
+            }
+        )
     }
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
     return (
         <>
@@ -112,36 +108,10 @@ const MainPage = () => {
             />
             <Footer />
 
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className="modal"
-                open={open}
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                <div className="modal__paper">
-                    <div className="modal__header">
-                        <h2 id="transition-modal-title">Congratulations</h2>
-                        <span onClick={updateUser}>x</span>
-                    </div>
-                    <div className="modal__body">
-                        You have successfully passed the registration
-                    </div>
-                    <div className="modal__footer">
-                        <button 
-                            className="modal__footer-btn" 
-                            onClick={updateUser}
-                        >
-                            Great
-                        </button>
-                    </div>
-                </div>
-                </Fade>
-            </Modal>
+            <ModalWindow 
+                updateUser={updateUser} 
+                open={open} 
+            />
         </>
     )
 }

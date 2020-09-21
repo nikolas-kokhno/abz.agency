@@ -16,7 +16,7 @@ export const About = () => {
                     <Grid item xs={12} sm={5} className="about__content-img">
                         <img src={Man} alt="man" />
                     </Grid>
-                    <Grid item xs={12} sm={7}>
+                    <Grid item xs={12} sm={7} className="about__type">
                         <div className="about__content-text">
                             <h4>I am cool frontend developer</h4>
                             <p>

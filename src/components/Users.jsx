@@ -19,7 +19,7 @@ const Users = ({users, showMore, showButton, loading}) => {
                     </Grid>
                     
                     <div className="users__cards">
-                        <Grid container spacing={3}>
+                        <Grid container spacing={3} style={{justifyContent: "center"}}>
                             {users.length !== 0 ? 
                                 users.map(user => (
                                     <UserCard key={user.id} user={user} /> )) 

@@ -9,7 +9,7 @@ export const Banner = () => {
                 <div className="container__content">
                     <div className="banner__content">
                         <h2 className="banner__content-title">
-                            Test assignment for Frontend Developer position
+                            Test assignment<br />for Frontent<br/> Developer position
                         </h2>
                         <h5 className="banner__content-subtitle">
                             <span>

@@ -17,6 +17,15 @@ export const Navbar = () => {
                         <img src={Logo} alt="logo"/>
                     </div>
 
+                    <input 
+                        type="checkbox" 
+                        id="navigation__check" 
+                        className="navigation__check"
+                    />
+                    <label htmlFor="check" className="navigation__check-btn">
+                        <img src={Menu} alt="menu"/>
+                    </label>
+
                     <ul className="navigation__content-items">
                         <li>
                             <Link
@@ -52,14 +61,6 @@ export const Navbar = () => {
                         </li>
                     </ul>
                     
-                    <input 
-                        type="checkbox" 
-                        id="navigation__check" 
-                        className="navigation__check"
-                    />
-                    <label htmlFor="check" className="navigation__check-btn">
-                        <img src={Menu} alt="menu"/>
-                    </label>
                 </div>
             </div>
         </div>
